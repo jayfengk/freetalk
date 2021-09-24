@@ -1709,7 +1709,7 @@ Date:   Fri Sep 24 09:49:55 2021 +0800
              'driver' => 'sqlite',[m
              'url' => env('DATABASE_URL'),[m
 [31m-            'database' => env('DB_DATABASE', database_path('database.sqlite')),[m
-[32m+[m[32m            'database' => env('DB_DATABASE', database_path('ithelp.sqlite')),[m
+[32m+[m[32m            'database' => env('DB_DATABASE', database_path('database.sqlite')),[m
              'prefix' => '',[m
              'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),[m
          ],[m

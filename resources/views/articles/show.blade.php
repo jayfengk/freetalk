@@ -18,7 +18,36 @@
                 <pre class="ml-4 mr-4 text-lg p-2">{{ $article->content }}</pre>
             </div>
             <hr class="mt-4 mb-4">
-            <a class="px-3 py-1 rounded bg-gray-200 hover:bg-gray-300" href="{{ route('articles.index') }}">返回首頁</a>
+            <div>
+                回覆：
+            </div>
+            <div>
+                <!-- 錯誤提示 -->
+                @if($errors->any())
+                    <div class="errors p-3 bg-red-500 text-red-100 font-thin rounded">
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <form class="container-fluid" action="{{ route('comments.store') }}" method="post">
+                    @csrf
+
+                    <div class="field my-2">
+                        <textarea name="content" id="" cols="50" rows="2" class="container border border-gray-300 p-2" placeholder="請輸入回覆">{{ old('content')}}</textarea>
+                    </div>
+
+                    <div class="flex">
+                        <div class="actions">
+                            <button type="submit" class="px-3 py-1 rounded bg-gray-200 hover:bg-gray-300">回覆文章</button>
+                        </div>
+                        <a href="{{ route('root') }}" class="ml-2 px-3 py-1 rounded bg-gray-200 hover:bg-gray-300">返回首頁</a>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 @endsection
