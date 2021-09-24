@@ -15,7 +15,7 @@ class CreateCommentsTable extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->integer('article_id');
+            $table->integer('article_id')->unsigned();
             $table->text('comment');
             $table->foreignId('user_id');
             $table->softDeletes();

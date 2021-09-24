@@ -41,8 +41,8 @@
                             </div>
                         </div>
                     @endforeach
-                    {{ $articles->links()}}
                 </div>
+                {{ $articles->links()}}
             </div>
         </div>
     </body>

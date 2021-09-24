@@ -8,10 +8,9 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-            <!-- 以迴圈印出資料 -->
-            @foreach($articles as $article)
-                <!-- 用戶只看到自己的貼文 -->
-                @if (isset(Auth::user()->id) && Auth::user()->id == $article->user_id)
+                <!-- 以迴圈印出資料 -->
+                @foreach($articles as $article)
+                    <!-- 用戶只看到自己的貼文 -->
                     <div class="border-t border-gray-300 my-1 p-2 m-4 shadow-xl ">
                         <h2 class="font-bold text-lg">
                             <!-- 檢視文章 -->
@@ -27,22 +26,22 @@
                             @if (Route::has('login'))
                                 @auth
                                     @if (isset(Auth::user()->id) && Auth::user()->id == $article->user_id)
-                                    <div class="flex">
-                                        <a class="ml-2 mr-2 px-2 rounded bg-blue-500 hover:bg-blue-400 text-blue-100" href="{{ route('articles.edit', $article) }}">編輯</a>
-                                        <form action="{{ route('articles.destroy', $article) }}" method="post">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit" class="px-2 rounded bg-red-500 hover:bg-red-400 text-red-100">刪除</button>
-                                        </form>
-                                    </div>
+                                        <div class="flex">
+                                            <a class="ml-2 mr-2 px-2 rounded bg-blue-500 hover:bg-blue-400 text-blue-100" href="{{ route('articles.edit', $article) }}">編輯</a>
+                                            <form action="{{ route('articles.destroy', $article) }}" method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="px-2 rounded bg-red-500 hover:bg-red-400 text-red-100">刪除</button>
+                                            </form>
+                                        </div>
                                     @endif
                                 @endauth
                             @endif
                         </div>
                     </div>
-                @endif
-            @endforeach
+                @endforeach
             </div>
+            {{ $articles->links()}}
         </div>
     </div>
 </x-app-layout>

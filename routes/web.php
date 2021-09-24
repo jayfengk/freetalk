@@ -24,8 +24,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/userhome', function () {
 })->name('userhome');
 
 Route::get('/userhome', function() {
-    // 印出資料到HOME
-    $articles = Article::with('user')->orderByDesc('id')->get();
+    // 利用SQL WHERE印出用戶發表過的所有資料到HOME
+    $articles = Article::where("user_id", Auth::user()->id)->orderByDesc('id')->paginate(5);
     return view('userhome', ['articles' => $articles]);
 })->name('userhome');
 

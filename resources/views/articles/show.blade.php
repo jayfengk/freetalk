@@ -14,7 +14,9 @@
             <a class="ml-10 font-thin text-2xl">時間：{{ $article->created_at }}</a>
             <hr class="mt-4 mb-4">
             <p class="ml-2 text-2xl text-gray-700 p-2">內文：</p>
-            <pre class="ml-4 text-lg text-gray-700 p-2">{{ $article->content }}</pre>
+            <div>
+                <pre class="ml-4 mr-4 text-lg p-2">{{ $article->content }}</pre>
+            </div>
             <hr class="mt-4 mb-4">
             <a class="px-3 py-1 rounded bg-gray-200 hover:bg-gray-300" href="{{ route('articles.index') }}">返回首頁</a>
         </div>
