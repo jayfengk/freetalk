@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ArticlesController;
+use App\Models\Article;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::resource('articles', ArticlesController::class);
+
+Route::get('/', [ArticlesController::class, 'index'])->name('root');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/userhome', function () {
+    return view('userhome');
+})->name('userhome');
+
+Route::get('/userhome', function() {
+    // 印出資料到HOME
+    $articles = Article::with('user')->orderByDesc('id')->get();
+    return view('userhome', ['articles' => $articles]);
+})->name('userhome');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
