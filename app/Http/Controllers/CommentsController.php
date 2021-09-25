@@ -12,7 +12,7 @@ class CommentsController extends Controller
         ]);
 
         auth()->user()->article()->comments()->create($content);
-        return redirect()->route('root')->with('notice', '回覆成功！');
+        return redirect()->route('root')->with('notice', '回覆文章成功！');
     }
 
     public function show($id) {
