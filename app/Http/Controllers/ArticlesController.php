@@ -30,17 +30,20 @@ class ArticlesController extends Controller
             'title' => 'required',
             'content' => 'required|min:10'
         ]);
-
+        
+        //限制只有透過登入才能CREATE文章
         auth()->user()->articles()->create($content);
         return redirect()->route('root')->with('notice', '文章發表成功！');
     }
 
     public function edit($id) {
+        //限制只有文章作者才能EDIT文章
         $article = auth()->user()->articles->find($id);
         return view('articles.edit', ['article' => $article]);
     }
 
     public function update(Request $request, $id) {
+        //限制只有文章作者才能UPDATE文章
         $article = auth()->user()->articles->find($id);
 
         $content = $request->validate([
@@ -53,6 +56,7 @@ class ArticlesController extends Controller
     }
 
     public function destroy($id) {
+        //限制只有文章作者才能DELETE文章
         $article = auth()->user()->articles()->find($id);
         $article->delete();
         return redirect()->route('root')->with('notice', '文章已刪除！');

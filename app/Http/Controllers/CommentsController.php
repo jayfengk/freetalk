@@ -10,7 +10,7 @@ class CommentsController extends Controller
         $content = $request->validate([
             'content' => 'required'
         ]);
-
+        
         auth()->user()->article()->comments()->create($content);
         return redirect()->route('root')->with('notice', '回覆文章成功！');
     }
@@ -20,3 +20,4 @@ class CommentsController extends Controller
         return view('articles.show', ['comment' => $comment]);
     }
 }
+

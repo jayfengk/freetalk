@@ -1,3 +1,6 @@
+@extends('layouts.article')
+
+@section('main')
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -11,7 +14,7 @@
                 <!-- 以迴圈印出資料 -->
                 @foreach($articles as $article)
                     <!-- 用戶只看到自己的貼文 -->
-                    <div class="border-t border-gray-300 my-1 p-2 m-4 shadow-xl ">
+                    <div class="border-t border-b border-gray-300 my-1 p-2 m-4 shadow-xl ">
                         <h2 class="font-bold text-lg">
                             <!-- 檢視文章 -->
                             <a class="hover:text-gray-400" href="{{ route('articles.show', $article) }}">
@@ -45,3 +48,4 @@
         </div>
     </div>
 </x-app-layout>
+@endsection
