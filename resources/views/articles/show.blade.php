@@ -9,24 +9,37 @@
         <div class="m-4 border border-gray-100 p-4 bg-gray-400 shadow-2xl">
             <a class="px-2 rounded bg-green-500 hover:bg-green-400 text-green-100 text-2xl" href="{{ route('articles.create') }}">發表文章</a>
             <br><br>
-            <div>
-                <h1 class="ml-2 mb-2 font-thin text-3xl">標題：{{ $article->title }}</h1>
+            <div class="flex">
+                <h1 class="ml-2 mb-2 font-thin text-3xl text-gray-100">標題：</h1>
+                <h1 class="ml-2 mb-2 font-thin text-3xl">{{ $article->title }}</h1>
             </div>
             <div>
-                <a class="ml-2 font-thin text-2xl">用戶：{{ $article->user->name }}</a>
-                <a class="ml-10 font-thin text-2xl">時間：{{ $article->created_at }}</a>
+                <a class="ml-2 font-thin fs-5">用戶：{{ $article->user->name }}</a>
+                <a class="ml-10 font-thin fs-5">時間：{{ $article->created_at }}</a>
             </div>
             <hr class="mt-4 mb-4">
             <div>
-                <p class="ml-2 text-2xl text-gray-700 p-2">內文：</p>
+                <p class="ml-2 font-thin text-2xl text-gray-100 p-2">內文：</p>
             </div>
             <div>
                 <pre class="ml-4 mr-4 text-lg p-2">{{ $article->content }}</pre>
             </div>
             <hr class="mt-4 mb-4">
             <div>
-                <p class="ml-2 text-2xl text-gray-700 p-2">回覆：</p>
+                <p class="ml-2 font-thin text-2xl text-gray-100 p-2">回覆</p>
             </div>
+            <!-- 以迴圈印出回覆 -->
+            <div class="container">
+                @foreach($comments as $comment)
+                    <div class="flex ml-4">
+                        <!-- 所有人都可以檢視回覆 -->
+                        <div>{{ $comment->user->name }}：</div>
+                        <pre>{{ $comment->content }}</pre>
+                    </div>
+                    <div class="text-right italic">{{ $comment->created_at }}</div>
+                @endforeach
+            </div>
+
                 <hr class="mt-4 mb-4">
             @if (Route::has('login'))
                 @auth
@@ -42,7 +55,7 @@
                         </div>
                     @endif
 
-                    <form class="container-fluid" action="{{ route('comments.store') }}" method="post">
+                    <form class="container-fluid" action="{{ route('articles.comments.store', $article->id) }}" method="post">
                         @csrf
                         <p>{{ Auth::user()->name }}：</p>
                         <div class="flex field my-2">

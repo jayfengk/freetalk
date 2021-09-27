@@ -15,7 +15,7 @@
                         <div class="border-t border-b border-gray-300 my-1 p-2 m-4 shadow-xl ">
                             <h2 class="font-bold text-lg">
                                 <!-- 檢視文章 -->
-                                <a class="hover:text-white" href="{{ route('articles.show', $article) }}">
+                                <a class="hover:text-gary-100" href="{{ route('articles.show', $article) }}">
                                     {{ $article->title }}
                                 </a>
                             </h2>

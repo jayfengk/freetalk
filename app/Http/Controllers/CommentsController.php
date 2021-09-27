@@ -6,18 +6,22 @@ use Illuminate\Http\Request;
 
 class CommentsController extends Controller
 {
-    public function store(Request $request) {
-        $content = $request->validate([
+    public function store(Request $request, $id) {
+        $request->validate([
             'content' => 'required'
         ]);
-        
-        auth()->user()->article()->comments()->create($content);
-        return redirect()->route('root')->with('notice', '回覆文章成功！');
+
+        $comment = new Comment;
+        $comment->user_id = $request->user()->id;
+        $comment->article_id = $id;
+        $comment->content = $request->content;
+        $comment->save();
+        return redirect('articles/'. $id)->with('notice', '回覆發表成功！');
     }
 
-    public function show($id) {
-        $comment = Comment::find($article_id);
-        return view('articles.show', ['comment' => $comment]);
-    }
+    // public function show($id) {
+    //     $comments = Comment::where("article_id", $id)->get();
+    //     return view('articles.show', ['comments' => $comments]);
+    // }
 }
 

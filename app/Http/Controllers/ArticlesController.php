@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Article;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
 class ArticlesController extends Controller
@@ -18,7 +19,9 @@ class ArticlesController extends Controller
 
     public function show($id) {
         $article = Article::find($id);
-        return view('articles.show', ['article' => $article]);
+        // 取出回覆資料
+        $comments = Comment::where("article_id", $id)->with('user')->get();
+        return view('articles.show', ['article' => $article, 'comments' => $comments]);
     }
 
     public function create() {
