@@ -5,7 +5,7 @@
         <a class="font-thin text-4xl hover:text-white" href="{{ route('root')}}">FREE TALK</a>
         <a class="font-thin text-3xl"> > 發表文章</a>
 
-        <div class="m-4 border border-gray-100 p-4 bg-gray-400 shadow-2xl">
+        <div class="m-4 rounded-lg border border-gray-100 p-4 bg-gray-400 shadow-2xl">
             <!-- 錯誤提示 -->
             @if($errors->any())
                 <div class="errors p-3 bg-red-500 text-red-100 font-thin rounded">
@@ -22,13 +22,13 @@
                 @csrf
                 <div class="field my-2">
                     <label class="text-2xl" for="">標題：</label>
-                    <input type="text" value="{{ old('title') }}" name="title" size="100" class="container border border-gray-300 p-2" placeholder="必須輸入標題">
+                    <input type="text" value="{{ old('title') }}" name="title" size="100" class="container rounded-lg border border-gray-300 p-2" placeholder="標題不得多於30個字元">
                 </div>
 
                 <div class="field my-2">
                     <label class="text-2xl" for="">內文：</label>
                     <br>
-                    <textarea name="content" id="" cols="50" rows="10" class="container border border-gray-300 p-2" placeholder="內容不能少於10個字元">{{ old('content')}}</textarea>
+                    <textarea name="content" id="" cols="50" rows="10" class="container rounded-lg border border-gray-300 p-2" placeholder="內容不得少於10個字元">{{ old('content')}}</textarea>
                 </div>
 
                 <div class="flex">

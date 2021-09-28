@@ -5,14 +5,14 @@
         <div class="container">
             <a class="font-thin text-4xl hover:text-white" href="{{ route('root')}}">FREE TALK</a>
             <br><br>
-            <div class="m-4 border border-gray-100 p-4 bg-gray-400 shadow-xl">
+            <div class="m-4 rounded-lg border border-gray-100 p-4 bg-gray-400 shadow-xl">
                 <div class="mb-4">
                     <a class="px-2 rounded bg-green-500 hover:bg-green-400 text-green-100 text-2xl" href="{{ route('articles.create') }}">發表文章</a>
                 </div>
                 <div>
                     <!-- 以迴圈印出資料 -->
                     @foreach($articles as $article)
-                        <div class="border-t border-b border-gray-300 my-1 p-2 m-4 shadow-xl ">
+                        <div class="rounded-lg border-t border-b border-gray-300 my-1 p-2 m-4 shadow-xl ">
                             <h2 class="font-bold text-lg">
                                 <!-- 檢視文章 -->
                                 <a class="hover:text-gary-100" href="{{ route('articles.show', $article) }}">
@@ -23,7 +23,8 @@
                                 <p class="text-gray-900">
                                     {{ $article->created_at }} 由 {{ $article->user->name }} 分享
                                 </p>
-                                <!-- 特定用戶登入才看到編輯刪除按鈕 -->
+                                <!-- <p class="ml-2">有{{$collection->count()}}個回覆</p> -->
+                                <!-- 作者登入才看到編輯刪除按鈕 -->
                                 @if (Route::has('login'))
                                     @auth
                                         @if (isset(Auth::user()->id) && Auth::user()->id == $article->user_id)

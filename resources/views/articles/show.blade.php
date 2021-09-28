@@ -6,17 +6,35 @@
         <a class="font-thin text-3xl"> > {{ $article->title }}</a>
         <br><br>
 
-        <div class="m-4 border border-gray-100 p-4 bg-gray-400 shadow-2xl">
+        <div class="m-4 rounded-lg border border-gray-100 p-4 bg-gray-400 shadow-2xl">
             <a class="px-2 rounded bg-green-500 hover:bg-green-400 text-green-100 text-2xl" href="{{ route('articles.create') }}">發表文章</a>
             <br><br>
             <div class="flex">
                 <h1 class="ml-2 mb-2 font-thin text-3xl text-gray-100">標題：</h1>
                 <h1 class="ml-2 mb-2 font-thin text-3xl">{{ $article->title }}</h1>
             </div>
-            <div>
-                <a class="ml-2 font-thin fs-5">用戶：{{ $article->user->name }}</a>
-                <a class="ml-10 font-thin fs-5">時間：{{ $article->created_at }}</a>
+            <div class="flex">
+                <p class="ml-2 font-thin fs-5 ">作者：</p>
+                <p class="font-thin fs-5 text-red-600">{{ $article->user->name }}</p>
+                <p class="ml-10 font-thin fs-5">時間：</p>
+                <p class="font-thin fs-5">{{ $article->created_at }}</p>
+                <p class="ml-10 font-thin fs-5">本文共獲得 {{ $collection->count() }} 個回覆</p>
             </div>
+            <!-- 作者登入才看到編輯刪除按鈕 -->
+            @if (Route::has('login'))
+                @auth
+                    @if (isset(Auth::user()->id) && Auth::user()->id == $article->user_id)
+                    <div class="flex mt-2">
+                        <a class="ml-2 mr-2 px-2 rounded bg-blue-500 hover:bg-blue-400 text-blue-100" href="{{ route('articles.edit', $article) }}">編輯</a>
+                        <form action="{{ route('articles.destroy', $article) }}" method="post">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="px-2 rounded bg-red-500 hover:bg-red-400 text-red-100" onclick="return confirm('您確認要刪除嗎？')">刪除</button>
+                        </form>
+                    </div>
+                    @endif
+                @endauth
+            @endif
             <hr class="mt-4 mb-4">
             <div>
                 <p class="ml-2 font-thin text-2xl text-gray-100 p-2">內文：</p>
@@ -33,8 +51,13 @@
                 @foreach($comments as $comment)
                     <div class="flex ml-4">
                         <!-- 所有人都可以檢視回覆 -->
-                        <div>{{ $comment->user->name }}：</div>
-                        <pre>{{ $comment->content }}</pre>
+                        @if($comment->user->name == $article->user->name)
+                            <div class="text-red-600">{{ $comment->user->name }}</div>
+                        @else
+                            <div>{{ $comment->user->name }}</div>
+                        @endif
+                        ：
+                        <p>{{ $comment->content }}</p>
                     </div>
                     <div class="text-right italic">{{ $comment->created_at }}</div>
                 @endforeach
@@ -59,9 +82,9 @@
                         @csrf
                         <p>{{ Auth::user()->name }}：</p>
                         <div class="flex field my-2">
-                            <textarea name="content" id="" cols="50" rows="1" class="container border border-gray-300 p-2" placeholder="請輸入回覆內容">{{ old('content')}}</textarea>
+                            <textarea name="content" id="" cols="50" rows="1" class="container rounded-lg border border-gray-300 p-2" placeholder="請輸入回覆內容"></textarea>
                             <div class="actions">
-                                <button type="submit" class="px-3 py-3 ml-2 rounded bg-gray-200 hover:bg-gray-300 text-nowrap">回覆</button>
+                                <button type="submit" class="px-3 py-3 ml-2 rounded-lg bg-gray-200 hover:bg-gray-300 text-nowrap">回覆</button>
                             </div>
                         </div>
                     </form>

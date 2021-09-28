@@ -14,29 +14,34 @@ class ArticlesController extends Controller
     public function index() {
         // 印出資料
         $articles = Article::with('user')->orderBy('id', 'desc')->paginate(10);
-        return view('articles.index', ['articles' => $articles]);
+        $number = Comment::where('article_id', 21)->get();
+        $collection = collect($number);
+        return view('articles.index', ['articles' => $articles, 'collection' => $collection]);
     }
 
     public function show($id) {
         $article = Article::find($id);
         // 取出回覆資料
-        $comments = Comment::where("article_id", $id)->with('user')->get();
-        return view('articles.show', ['article' => $article, 'comments' => $comments]);
+        $comments = Comment::where('article_id', $id)->with('user')->get();
+        //計算回覆數量
+        $number = Comment::where('article_id', $id)->get();
+        $collection = collect($number);
+        return view('articles.show', ['article' => $article, 'comments' => $comments, 'collection' => $collection]);
     }
 
     public function create() {
         return view('articles.create');
     }
 
-    public function store(Request $request) {
+    public function store(Request $request, $id) {
         $content = $request->validate([
-            'title' => 'required',
+            'title' => 'required|max:30',
             'content' => 'required|min:10'
         ]);
         
         //限制只有透過登入才能CREATE文章
         auth()->user()->articles()->create($content);
-        return redirect()->route('root')->with('notice', '文章發表成功！');
+        return redirect('articles/'. $id)->with('notice', '文章發表成功！');
     }
 
     public function edit($id) {
@@ -50,12 +55,12 @@ class ArticlesController extends Controller
         $article = auth()->user()->articles->find($id);
 
         $content = $request->validate([
-            'title' => 'required',
+            'title' => 'required|max:30',
             'content' => 'required|min:10'
         ]);
 
         $article->update($content);
-        return redirect()->route('root')->with('notice', '文章更新成功！');
+        return redirect('articles/'. $id)->with('notice', '文章更新成功！');
     }
 
     public function destroy($id) {

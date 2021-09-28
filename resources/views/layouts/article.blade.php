@@ -87,16 +87,16 @@
         @endif
         @yield('main')
         <div class="container">
-            <div class="m-4 p-2 bg-dark">
+            <div class="m-4 p-2 bg-dark rounded-lg">
                 <div class="d-flex justify-content-start">
-                    <div class="bg-success p-1">Everybody</div>
-                    <div class="bg-primary p-1">Can</div>
-                    <div class="bg-danger p-1">Talk</div>
+                    <div class="rounded-lg bg-success p-1">Everybody</div>
+                    <div class="rounded-lg ml-2 mr-2 bg-primary p-1">Can</div>
+                    <div class="rounded-lg bg-danger p-1">Talk</div>
                 </div>
                 <div class="d-flex justify-content-end">
-                    <div class="bg-warning p-1">Produce</div>
-                    <div class="bg-secondary p-1">By</div>
-                    <div class="bg-info p-1">Jay Fung</div>
+                    <div class="rounded-lg bg-warning p-1">Produce</div>
+                    <div class="rounded-lg ml-2 mr-2 bg-secondary p-1">By</div>
+                    <div class="rounded-lg bg-info p-1">Jay Fung</div>
                 </div>
             </div>
         </div>
