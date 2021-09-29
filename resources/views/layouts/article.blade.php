@@ -80,11 +80,6 @@
                 @endauth
             </div>
         @endif
-        @if(session()->has('notice'))
-        <div class="bg-pink-300">
-            {{ session()->get('notice')}}
-        </div>
-        @endif
         @yield('main')
         <div class="container">
             <div class="m-4 p-2 bg-dark rounded-lg">

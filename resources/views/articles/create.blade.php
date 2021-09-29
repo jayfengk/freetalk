@@ -16,8 +16,7 @@
                     </ul>
                 </div>
             @endif
-
-
+            
             <form class="container-fluid" action="{{ route('articles.store') }}" method="post">
                 @csrf
                 <div class="field my-2">

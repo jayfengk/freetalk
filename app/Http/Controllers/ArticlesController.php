@@ -33,15 +33,23 @@ class ArticlesController extends Controller
         return view('articles.create');
     }
 
-    public function store(Request $request, $id) {
+    public function store(Request $request) {
         $content = $request->validate([
             'title' => 'required|max:30',
             'content' => 'required|min:10'
         ]);
         
         //限制只有透過登入才能CREATE文章
-        auth()->user()->articles()->create($content);
-        return redirect('articles/'. $id)->with('notice', '文章發表成功！');
+        $article = auth()->user()->articles()->create($content);
+
+        // 抓$article->id的另一個方式
+        // $article = new Article;
+        // $article->user_id = $request->user()->id;
+        // $article->title = $request->title;
+        // $article->content = $request->content;
+        // $article->save();
+        
+        return redirect('articles/'. $article->id)->with('notice', '文章發表成功！');
     }
 
     public function edit($id) {
