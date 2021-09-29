@@ -1719,7 +1719,7 @@ Date:   Fri Sep 24 09:49:55 2021 +0800
              'port' => env('DB_PORT', '3306'),[m
 [31m-            'database' => env('DB_DATABASE', 'forge'),[m
 [31m-            'username' => env('DB_USERNAME', 'forge'),[m
-[32m+[m[32m            'database' => env('DB_DATABASE', 'ithelp'),[m
+[32m+[m[32m            'database' => env('DB_DATABASE', 'ftforum'),[m
 [32m+[m[32m            'username' => env('DB_USERNAME', 'root'),[m
              'password' => env('DB_PASSWORD', ''),[m
              'unix_socket' => env('DB_SOCKET', ''),[m
