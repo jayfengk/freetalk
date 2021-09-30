@@ -5,6 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center text-gray-500 hover:text-gray-700">
+                    <x-jet-application-mark class="block h-9 w-auto" />
                     <a class="font-thin text-2xl" href="{{ route('root') }}">
                     FREE TALK
                     </a>
