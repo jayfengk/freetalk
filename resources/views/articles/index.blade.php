@@ -3,7 +3,11 @@
 @section('main')
 <body>
     <div class="container">
-        <a class="font-thin text-4xl hover:text-white" href="{{ route('root')}}">FREE TALK</a>
+        <!-- Logo -->
+        <div class="flex-shrink-0 flex items-center text-gray-500 hover:text-gray-700">
+            <x-jet-application-mark class="block h-9 w-auto" />
+            <a class="ml-2 font-thin text-4xl text-black hover:text-white" href="{{ route('root')}}">FREE TALK</a>
+        </div>
         @if(session()->has('notice'))
         <div class="bg-pink-300">
             {{ session()->get('notice')}}
